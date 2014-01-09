@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #form {
+            padding: 10px;
+            font-size: 11px;
+            font-family: arial, sans-serif;
+            color: #EEE;
+            background-color: #444;
+            margin: 0;
+        }
+
+        #scriptPath {
+            width: 50%;
+            padding: 4px 10px;
+            border: 1px solid #999;
+            max-width: 500px;
+
+        }
+
+        #run {
+            min-width: 145px;
+        }
+
+        #ngIframe {}
+    </style>
+</head>
+<body>
+
+    <p id="form">
+        <label>
+            boot.js path<br />
+            <input type="text" id="scriptPath" />
+            <button id="run">Load script / refresh</button>
+        </label>
+    </p>
+
+
+    <iframe src="" id="ngIframe" width="100%" height="700" seamless frameBorder="0"></iframe>
+
+    <script>
+        var ngHtml = "";
+
+        var iframeUrl = location.href + '/ng-interactive.html' + '?random=' + +new Date + '#';
+        var scriptInput = document.querySelector('#scriptPath');
+        var runBtn = document.querySelector('#run');
+        var iframe = document.querySelector('#ngIframe');
+
+
+        function loadPreview() {
+            iframe.removeAttribute('src');
+            setTimeout(function() {
+                iframe.setAttribute('src', iframeUrl + scriptInput.value);
+            }, 100);
+        }
+
+        runBtn.addEventListener('click', loadPreview, false);
+    </script>
+
+</body>
+</html>
