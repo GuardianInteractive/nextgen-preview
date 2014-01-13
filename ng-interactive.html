@@ -761,10 +761,27 @@ p+figure,p+video{margin-top:4px}.element-video__wrap{position:relative;padding-b
         </div>
 
         <div class="article__container">
+
+
+            <div style='font-family: "AgateSans", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;"'>Hello there Mr. Sample text.</div>
+
+            <div style='font-family: "EgyptianText", georgia, serif;'>Hello there Mr. Sample text.</div>
+
+            <div style='font-family: "EgyptianHeadline", georgia, serif;'>Hello there Mr. Sample text.</div>
+
+
+
             <figure class="interactive" data-interactive=""></figure>
             <script>
+                function getParameterByName(name) {
+                    name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+                    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                        results = regex.exec(location.search);
+                    return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+                }
+
                 window.onload = function() {
-                    var bootPath = location.hash.replace('#', '');
+                    var bootPath = getParameterByName('path');
                     console.log(bootPath);
                     var el = document.querySelector('figure.interactive');
                     require([bootPath]).then(function(app) {

@@ -47,20 +47,42 @@
     <script>
         var ngHtml = "";
 
-        var iframeUrl = location.href + '/ng-interactive.html' + '?random=' + +new Date + '#';
+        function getParameterByName(name) {
+            name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+            var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+                results = regex.exec(location.search);
+            return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+        }
+
+        var initURL = getParameterByName('url');
+        var iframeUrl = location.origin + location.pathname + 'ng-interactive.html' + '?random=' + +new Date + '&path=';
         var scriptInput = document.querySelector('#scriptPath');
         var runBtn = document.querySelector('#run');
         var iframe = document.querySelector('#ngIframe');
+
+        if (initURL) {
+            console.log(initURL, location);
+            scriptInput.value = initURL;
+            loadPreview();
+        }
 
 
         function loadPreview() {
             iframe.removeAttribute('src');
             setTimeout(function() {
+                console.log(iframeUrl + scriptInput.value);
                 iframe.setAttribute('src', iframeUrl + scriptInput.value);
             }, 100);
         }
 
+
         runBtn.addEventListener('click', loadPreview, false);
+        scriptInput.addEventListener('keydown', function(e) {
+            if (e.keyCode == 13) {
+                loadPreview();
+                return false;
+            }
+        }, false);
     </script>
 
 </body>
